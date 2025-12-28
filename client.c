@@ -42,20 +42,12 @@ int	main(int argc, char **argv)
 {
 	pid_t				target_pid;
 	int					i;
-	int					len;
 	struct sigaction	sa;
 
 	if (argc != 3)
 		return (write(2, "Usage: ./client <pid> <message>\n", 33), 1);
-	len = 0;
-	while (argv[1][len])
-		len++;
-	if (len > 7)
-		return (write(2, "Error: PID too long\n", 20), 1);
 	target_pid = ft_atoi(argv[1]);
-	if (target_pid <= 0 || target_pid >= 4194304)
-		return (write(2, "Error: Invalid PID\n", 19), 1);
-	if (kill(target_pid, 0) == -1)
+	if (target_pid <= 0 || kill(target_pid, 0) == -1)
 		return (write(2, "Error: Invalid PID\n", 19), 1);
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
