@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yagunduz <yagunduz@student.42istanbul.tr>  #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-12-20 14:30:00 by yagunduz          #+#    #+#             */
+/*   Updated: 2025-12-20 14:30:00 by yagunduz         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minitalk_bonus.h"
+
+static volatile sig_atomic_t	g_signal_received = 0;
+
+static void	ack_receiver(int sig)
+{
+	(void)sig;
+	g_signal_received = 1;
+}
+
+static void	transmit_byte(pid_t pid, unsigned char byte)
+{
+	int	bit;
+
+	bit = 7;
+	while (bit >= 0)
+	{
+		g_signal_received = 0;
+		if ((byte >> bit) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		while (!g_signal_received)
+			pause();
+		bit--;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	pid_t				pid;
+	int					i;
+	struct sigaction	sa;
+
+	if (argc != 3)
+		return (write(2, "Usage: ./client <pid> <msg>\n", 29), 1);
+	pid = ft_atoi(argv[1]);
+	if (pid <= 0 || kill(pid, 0) == -1)
+		return (write(2, "Error: Invalid PID\n", 19), 1);
+	sa.sa_handler = ack_receiver;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	i = 0;
+	while (argv[2][i])
+		transmit_byte(pid, (unsigned char)argv[2][i++]);
+	transmit_byte(pid, '\0');
+	write(1, "Message sent!\n", 14);
+	return (0);
+}
