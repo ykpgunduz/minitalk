@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yagunduz <yagunduz@student.42istanbul.tr>  #+#  +:+       +#+         #
+#    By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/27 10:27:11 by yagunduz          #+#    #+#              #
-#    Updated: 2025/12/27 10:37:10 by yagunduz         ###   ########.tr        #
+#    Updated: 2025/12/30 19:04:28 by yagunduz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

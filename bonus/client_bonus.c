@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yagunduz <yagunduz@student.42istanbul.tr>  #+#  +:+       +#+        */
+/*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-12-20 14:30:00 by yagunduz          #+#    #+#             */
-/*   Updated: 2025-12-20 14:30:00 by yagunduz         ###   ########.tr       */
+/*   Created: 2025/12/20 14:30:00 by yagunduz          #+#    #+#             */
+/*   Updated: 2025/12/30 19:08:06 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,17 @@ static void	transmit_byte(pid_t pid, unsigned char byte)
 	{
 		g_signal_received = 0;
 		if ((byte >> bit) & 1)
+		{
 			kill(pid, SIGUSR1);
+		}
 		else
+		{
 			kill(pid, SIGUSR2);
+		}
 		while (!g_signal_received)
+		{
 			pause();
+		}
 		bit--;
 	}
 }

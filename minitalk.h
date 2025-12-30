@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yagunduz <yagunduz@student.42istanbul.tr>  #+#  +:+       +#+        */
+/*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-11-12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2025-11-12 13:07:07 by yagunduz         ###   ########.tr       */
+/*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
+/*   Updated: 2025/12/30 19:04:18 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

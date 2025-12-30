@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yagunduz <yagunduz@student.42istanbul.tr>  #+#  +:+       +#+        */
+/*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-11-12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2025-11-12 13:07:07 by yagunduz         ###   ########.tr       */
+/*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
+/*   Updated: 2025/12/30 19:04:21 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ static void	signal_handler(int sig, siginfo_t *info, void *context)
 
 	(void)context;
 	if (sig == SIGUSR1)
+	{
 		current_char = (current_char << 1) | 1;
+	}
 	else
+	{
 		current_char = (current_char << 1);
+	}
 	bit_count++;
 	if (bit_count == 8)
 	{
@@ -49,6 +53,8 @@ int	main(void)
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
+	{
 		pause();
+	}
 	return (0);
 }
