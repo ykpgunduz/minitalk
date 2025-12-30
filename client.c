@@ -6,18 +6,18 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2025/12/30 19:44:42 by yagunduz         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:49:10 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static volatile sig_atomic_t	g_ack_flag = 0;
+static volatile sig_atomic_t	g_confirmation = 0;
 
-static void	handler_ack(int sig)
+static void	signal_confirmation(int sig)
 {
 	(void)sig;
-	g_ack_flag = 1;
+	g_confirmation = 1;
 }
 
 static void	send_char_bits(pid_t target_pid, unsigned char ch)
@@ -32,12 +32,12 @@ static void	send_char_bits(pid_t target_pid, unsigned char ch)
 	bit_index = 7;
 	while (bit_index >= 0)
 	{
-		g_ack_flag = 0;
+		g_confirmation = 0;
 		if ((ch >> bit_index) & 1)
 			kill(target_pid, SIGUSR1);
 		else
 			kill(target_pid, SIGUSR2);
-		while (!g_ack_flag)
+		while (!g_confirmation)
 			sigsuspend(&orig_mask);
 		bit_index--;
 	}
@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 	}
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sa.sa_handler = handler_ack;
+	sa.sa_handler = signal_confirmation;
 	sigaction(SIGUSR1, &sa, NULL);
 	i = 0;
 	while (argv[2][i])
