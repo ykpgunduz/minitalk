@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 14:30:00 by yagunduz          #+#    #+#             */
-/*   Updated: 2025/12/30 19:05:12 by yagunduz         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:44:42 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	ft_putnbr(int n)
 {
 	char	c;
 
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		if (n == -2147483648)
+		{
+			write(1, "2147483648", 10);
+			return ;
+		}
+		n = -n;
+	}
 	if (n >= 10)
 		ft_putnbr(n / 10);
 	c = (n % 10) + '0';

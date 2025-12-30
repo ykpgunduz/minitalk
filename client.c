@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2025/12/30 19:04:38 by yagunduz         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:44:42 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ static void	handler_ack(int sig)
 
 static void	send_char_bits(pid_t target_pid, unsigned char ch)
 {
-	int	bit_index;
+	int			bit_index;
+	sigset_t	mask;
+	sigset_t	orig_mask;
 
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGUSR1);
+	sigprocmask(SIG_BLOCK, &mask, &orig_mask);
 	bit_index = 7;
 	while (bit_index >= 0)
 	{
 		g_ack_flag = 0;
 		if ((ch >> bit_index) & 1)
-		{
 			kill(target_pid, SIGUSR1);
-		}
 		else
-		{
 			kill(target_pid, SIGUSR2);
-		}
 		while (!g_ack_flag)
-		{
-			pause();
-		}
+			sigsuspend(&orig_mask);
 		bit_index--;
 	}
+	sigprocmask(SIG_SETMASK, &orig_mask, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -69,4 +69,5 @@ int	main(int argc, char **argv)
 		send_char_bits(target_pid, (unsigned char)argv[2][i++]);
 	}
 	send_char_bits(target_pid, '\0');
+	return (0);
 }

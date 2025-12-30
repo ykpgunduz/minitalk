@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 14:30:00 by yagunduz          #+#    #+#             */
-/*   Updated: 2025/12/30 19:08:06 by yagunduz         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:44:42 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ static void	ack_receiver(int sig)
 
 static void	transmit_byte(pid_t pid, unsigned char byte)
 {
-	int	bit;
+	int			bit;
+	sigset_t	mask;
+	sigset_t	orig_mask;
 
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGUSR1);
+	sigprocmask(SIG_BLOCK, &mask, &orig_mask);
 	bit = 7;
 	while (bit >= 0)
 	{
 		g_signal_received = 0;
 		if ((byte >> bit) & 1)
-		{
 			kill(pid, SIGUSR1);
-		}
 		else
-		{
 			kill(pid, SIGUSR2);
-		}
 		while (!g_signal_received)
-		{
-			pause();
-		}
+			sigsuspend(&orig_mask);
 		bit--;
 	}
+	sigprocmask(SIG_SETMASK, &orig_mask, NULL);
 }
 
 int	main(int argc, char **argv)

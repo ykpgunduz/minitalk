@@ -6,7 +6,7 @@
 #    By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/27 10:27:11 by yagunduz          #+#    #+#              #
-#    Updated: 2025/12/30 19:04:28 by yagunduz         ###   ########.fr        #
+#    Updated: 2025/12/30 19:44:42 by yagunduz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,4 +57,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+norm:
+	@norminette $(SRCS_SERVER) $(SRCS_CLIENT) minitalk.h
+	@norminette $(SRCS_SERVER_BONUS) $(SRCS_CLIENT_BONUS) bonus/minitalk_bonus.h
+
+.PHONY: all clean fclean re bonus norm
