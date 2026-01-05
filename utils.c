@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2026/01/05 11:39:36 by yagunduz         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:00:33 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ int	ft_atoi(const char *nptr)
 	sign = 1;
 	sum = 0;
 	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+	{
 		nptr++;
+	}
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
+		{
 			sign = -1;
+		}
 		nptr++;
 	}
 	while (*nptr >= '0' && *nptr <= '9')

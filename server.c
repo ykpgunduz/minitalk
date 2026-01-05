@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2026/01/05 11:39:43 by yagunduz         ###   ########.fr       */
+/*   Updated: 2026/01/05 12:59:26 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ int	main(void)
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+	{
 		return (write(2, "Error: sigaction failed\n", 24), 1);
+	}
 	if (sigaction(SIGUSR2, &sa, NULL) == -1)
+	{
 		return (write(2, "Error: sigaction failed\n", 24), 1);
+	}
 	while (1)
 	{
 		pause();
