@@ -6,7 +6,7 @@
 /*   By: yagunduz <yagunduz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:07:07 by yagunduz          #+#    #+#             */
-/*   Updated: 2026/01/05 11:40:08 by yagunduz         ###   ########.fr       */
+/*   Updated: 2026/01/06 13:56:19 by yagunduz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	signal_confirmation(int sig)
 	g_confirmation = 1;
 }
 
-static void	send_char_bits(pid_t target_pid, unsigned char ch)
+static void	send_char_bits(pid_t target_pid, unsigned char chr)
 {
 	int			bit_index;
 	sigset_t	mask;
@@ -33,7 +33,7 @@ static void	send_char_bits(pid_t target_pid, unsigned char ch)
 	while (bit_index >= 0)
 	{
 		g_confirmation = 0;
-		if ((ch >> bit_index) & 1)
+		if ((chr >> bit_index) & 1)
 			kill(target_pid, SIGUSR1);
 		else
 			kill(target_pid, SIGUSR2);
@@ -66,7 +66,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (argv[2][i])
 	{
-		send_char_bits(target_pid, (unsigned char)argv[2][i++]);
+		send_char_bits(target_pid, (unsigned char)argv[2][i]);
+		i++;
 	}
 	send_char_bits(target_pid, '\0');
 	return (0);
