@@ -64,14 +64,6 @@ make
 - `Makefile`       : Derleme kuralları.
 - `bonus/`         : Bonus versiyonları (`client_bonus.c`, `server_bonus.c`, vs.).
 
-## Test ve Notlar
-
-- `server`'ı bir terminalde çalıştırıp, diğer terminalden bir veya daha fazla `client` çağırarak test edin.
-- Geçersiz PID veya eksik argümanlar için `client` uygun hata mesajı vermelidir.
-- Gelişmiş senaryolar ve zamanlama sorunları için `bonus` sürümlerine bakın.
-
-İyi çalışmalar! Değişiklik isterseniz söyleyin.
-
 ## Kaynaklar
 
 - Linux sinyalleri belgeleri: https://man7.org/linux/man-pages/man7/signal.7.html
@@ -84,4 +76,4 @@ AI araçları aşağıdaki konularda yardımcı araç olarak kullanılmıştır:
 - Bu `README.md` metninin taslağının hazırlanması ve iyileştirilmesi.
 - Geliştirme sırasında hata ayıklama önerileri ve zamanlama/yarış durumlarıyla ilgili rehberlik.
 
-Tüm temel proje kodu, algoritmalar ve mantık yazar (`yagunduz`) tarafından uygulanmıştır.
+Tüm temel proje kodu, algoritmalar ve mantık kendi tarafımca yazılmıştır.
