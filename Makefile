@@ -10,51 +10,44 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+SERVER = server
+CLIENT = client
 
-SRCS_SERVER	= server.c utils.c
-SRCS_CLIENT	= client.c utils.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+HEADER = minitalk.h
 
-SRCS_SERVER_BONUS = bonus/server_bonus.c bonus/utils_bonus.c
-SRCS_CLIENT_BONUS = bonus/client_bonus.c bonus/utils_bonus.c
+SRCS_S = server.c utils.c
+SRCS_C = client.c utils.c
+SRCS_S_B = bonus/server_bonus.c bonus/utils_bonus.c
+SRCS_C_B = bonus/client_bonus.c bonus/utils_bonus.c
 
-ifdef BONUS
-OBJS_SERVER	= $(SRCS_SERVER_BONUS:.c=.o)
-OBJS_CLIENT	= $(SRCS_CLIENT_BONUS:.c=.o)
-else
-OBJS_SERVER	= $(SRCS_SERVER:.c=.o)
-OBJS_CLIENT	= $(SRCS_CLIENT:.c=.o)
-endif
+OBJS_S = $(SRCS_S:.c=.o)
+OBJS_C = $(SRCS_C:.c=.o)
+OBJS_S_B = $(SRCS_S_B:.c=.o)
+OBJS_C_B = $(SRCS_C_B:.c=.o)
 
-OBJS_SERVER_BONUS = $(SRCS_SERVER_BONUS:.c=.o)
-OBJS_CLIENT_BONUS = $(SRCS_CLIENT_BONUS:.c=.o)
+all: $(SERVER) $(CLIENT)
 
-NAME_SERVER	= server
-NAME_CLIENT	= client
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(NAME_SERVER) $(NAME_CLIENT)
+$(SERVER): $(OBJS_S)
+	$(CC) $(CFLAGS) $(OBJS_S) -o $(SERVER)
 
-$(NAME_SERVER): $(OBJS_SERVER)
-	$(CC) $(CFLAGS) $(OBJS_SERVER) -o $(NAME_SERVER)
+$(CLIENT): $(OBJS_C)
+	$(CC) $(CFLAGS) $(OBJS_C) -o $(CLIENT)
 
-$(NAME_CLIENT): $(OBJS_CLIENT)
-	$(CC) $(CFLAGS) $(OBJS_CLIENT) -o $(NAME_CLIENT)
-
-bonus: 
-	@$(MAKE) BONUS=1 all
+bonus: fclean $(OBJS_S_B) $(OBJS_C_B)
+	$(CC) $(CFLAGS) $(OBJS_S_B) -o $(SERVER)
+	$(CC) $(CFLAGS) $(OBJS_C_B) -o $(CLIENT)
 
 clean:
-	rm -f $(OBJS_SERVER) $(OBJS_CLIENT)
-	rm -f $(OBJS_SERVER_BONUS) $(OBJS_CLIENT_BONUS)
+	rm -rf $(OBJS_S) $(OBJS_C) $(OBJS_S_B) $(OBJS_C_B)
 
 fclean: clean
-	rm -f $(NAME_SERVER) $(NAME_CLIENT)
+	rm -rf $(SERVER) $(CLIENT)
 
 re: fclean all
 
-norm:
-	@norminette $(SRCS_SERVER) $(SRCS_CLIENT) minitalk.h
-	@norminette $(SRCS_SERVER_BONUS) $(SRCS_CLIENT_BONUS) bonus/minitalk_bonus.h
-
-.PHONY: all clean fclean re bonus norm
+.PHONY: all bonus clean fclean re
