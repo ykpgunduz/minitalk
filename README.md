@@ -68,7 +68,8 @@ make
 
 - Linux sinyalleri belgeleri: https://man7.org/linux/man-pages/man7/signal.7.html
 - Sinyaller (IPC) hakkında genel bakış: https://en.wikipedia.org/wiki/Signal_(IPC)
-- Minitalk proje konusu (42 intra): kampüsünüzün konu sayfasına bakın.
+- Minitalk proje konusu (42 intra): https://cdn.intra.42.fr/pdf/pdf/193350/en.subject.pdf — Proje gereksinimleri, kurallar ve değerlendirme kriterleri (resmi konu dokümanı).
+- Bit işlemleri ve bit maskeleme rehberi: https://medium.com/@muhsin.kulbak/bitsel-i%CC%87%C5%9Flemler-ve-bit-maskeleme-0a7be61a86ef — Bit manipülasyonu, maskeler ve örnekler; sinyallerle bit bazlı iletişim mantığını anlamak için faydalı.
 
 ### AI Kullanımı
 
